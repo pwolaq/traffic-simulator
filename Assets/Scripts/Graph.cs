@@ -43,4 +43,70 @@ public class Graph {
             edge = new Edge(vertexA, vertexB, s);
         }
     }
+
+    public List<Vertex> ShortestPath(Vertex from, Vertex to)
+    {
+        Dictionary<Vertex, int> distances = new Dictionary<Vertex, int>();
+        Dictionary<Vertex, Vertex> previous = new Dictionary<Vertex, Vertex>();
+        HashSet<Vertex> unvisited = new HashSet<Vertex>();
+
+        foreach(Vertex vertex in g.Values)
+        {
+            distances.Add(vertex, int.MaxValue);
+            previous.Add(vertex, null);
+            unvisited.Add(vertex);
+        }
+
+        distances.Add(from, 0);
+
+        while(unvisited.Count > 0)
+        {
+            Vertex vertex = null;
+            int min = int.MaxValue;
+
+            foreach(Vertex v in unvisited)
+            {
+                if(distances[v] < min)
+                {
+                    min = distances[v];
+                    vertex = v;
+                }
+            }
+
+            if (to.Equals(vertex))
+            {
+                break;
+            }
+
+            unvisited.Remove(vertex);
+
+            foreach(Edge e in vertex.GetEdges())
+            {
+                int alt = distances[vertex] + e.GetDistance();
+                Vertex neighbor = e.GetNeighbor(vertex);
+
+                if(alt < distances[neighbor])
+                {
+                    distances[neighbor] = alt;
+                    previous[neighbor] = vertex;
+                }
+            }
+        }
+
+        return GetPath(previous, to);
+    }
+
+    private List<Vertex> GetPath(Dictionary<Vertex, Vertex> previous, Vertex to)
+    {
+        List<Vertex> path = new List<Vertex>();
+
+        while(to != null)
+        {
+            path.Add(to);
+            to = previous[to];
+        }
+
+        path.Reverse();
+        return path;
+    }
 }

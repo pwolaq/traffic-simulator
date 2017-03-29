@@ -17,13 +17,30 @@ public class Edge {
         b.AddEdge(this);
     }
 
-    public Vertex getA()
+    public Vertex GetA()
     {
         return a;
     }
 
-    public Vertex getB()
+    public Vertex GetB()
     {
         return b;
+    }
+
+    public Vertex GetNeighbor(Vertex from)
+    {
+        if (a.Equals(from))
+        {
+            return b;
+        }
+        else
+        {
+            return a;
+        }
+    }
+
+    public int GetDistance()
+    {
+        return 1;
     }
 }

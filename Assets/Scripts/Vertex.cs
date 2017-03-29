@@ -16,13 +16,18 @@ public class Vertex {
         edges.Add(e);
     }
 
+    public List<Edge> GetEdges()
+    {
+        return edges;
+    }
+
     public void Log()
     {
         Debug.Log(this);
 
         foreach(Edge e in edges)
         {
-            Debug.Log(" -> " + (e.getB().Equals(this) ? e.getA() : e.getB()));
+            Debug.Log(" -> " + e.GetNeighbor(this));
         }
     }
 
