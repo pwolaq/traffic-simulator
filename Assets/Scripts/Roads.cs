@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Roads : MonoBehaviour {
-    private Graph graph;
+    private Graph graph = null;
 
 	void Start () {
         GameObject[] vertices = GameObject.FindGameObjectsWithTag("Intersection");

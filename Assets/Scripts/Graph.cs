@@ -4,28 +4,30 @@ using UnityEngine;
 
 public class Graph {
     private Dictionary<int, Vertex> g = new Dictionary<int, Vertex>();
+    public List<Vertex> cachedPath = null;
 
     public Graph(GameObject[] vertices, GameObject[] edges)
     {
-        foreach(GameObject obj in vertices)
+        AddVertices(vertices);
+        AddEdges(edges);
+    }
+
+    private void AddVertices(GameObject[] vertices)
+    {
+        foreach (GameObject obj in vertices)
         {
             Intersection intersection = obj.GetComponent<Intersection>();
             Vertex vertex = new Vertex(intersection);
             g.Add(intersection.GetInstanceID(), vertex);
         }
+    }
 
-        foreach(GameObject obj in edges)
+    private void AddEdges(GameObject[] edges)
+    {
+        foreach (GameObject obj in edges)
         {
             Segment segment = obj.GetComponent<Segment>();
             AddEdge(segment);
-        }
-
-        foreach (GameObject obj in vertices)
-        {
-            Intersection intersection = obj.GetComponent<Intersection>();
-            Vertex vertex;
-            g.TryGetValue(intersection.GetInstanceID(), out vertex);
-            vertex.Log();
         }
     }
 
@@ -57,7 +59,7 @@ public class Graph {
             unvisited.Add(vertex);
         }
 
-        distances.Add(from, 0);
+        distances[from] = 0;
 
         while(unvisited.Count > 0)
         {
@@ -80,20 +82,25 @@ public class Graph {
 
             unvisited.Remove(vertex);
 
-            foreach(Edge e in vertex.GetEdges())
-            {
-                int alt = distances[vertex] + e.GetDistance();
-                Vertex neighbor = e.GetNeighbor(vertex);
-
-                if(alt < distances[neighbor])
-                {
-                    distances[neighbor] = alt;
-                    previous[neighbor] = vertex;
-                }
-            }
+            VisitNeighbors(vertex, distances, previous);
         }
 
         return GetPath(previous, to);
+    }
+
+    private void VisitNeighbors(Vertex vertex, Dictionary<Vertex, int> distances, Dictionary<Vertex, Vertex> previous)
+    {
+        foreach (Edge e in vertex.GetEdges())
+        {
+            int alt = distances[vertex] + e.GetDistance();
+            Vertex neighbor = e.GetNeighbor(vertex);
+
+            if (alt < distances[neighbor])
+            {
+                distances[neighbor] = alt;
+                previous[neighbor] = vertex;
+            }
+        }
     }
 
     private List<Vertex> GetPath(Dictionary<Vertex, Vertex> previous, Vertex to)

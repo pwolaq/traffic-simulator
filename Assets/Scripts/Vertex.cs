@@ -21,14 +21,9 @@ public class Vertex {
         return edges;
     }
 
-    public void Log()
+    public Intersection GetIntersection()
     {
-        Debug.Log(this);
-
-        foreach(Edge e in edges)
-        {
-            Debug.Log(" -> " + e.GetNeighbor(this));
-        }
+        return intersection;
     }
 
     public override string ToString()

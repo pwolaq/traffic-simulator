@@ -5,7 +5,7 @@ using UnityEngine;
 public class Visualizer : MonoBehaviour {
     private Color colorIntersections = Color.red;
     private Color colorSegments = Color.green;
-    private float radius = 5f;
+    private float radius = 3f;
 
     void OnDrawGizmos()
     {
