@@ -3,10 +3,29 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Roads : MonoBehaviour {
-	void Start () {
+    private Graph g;
+
+	void Awake () {
         GameObject[] vertices = GameObject.FindGameObjectsWithTag("Intersection");
         GameObject[] edges = GameObject.FindGameObjectsWithTag("Segment");
 
-        new Graph(vertices, edges);
+        g = new Graph(vertices, edges);
 	}
+
+    public Intersection GetRandomIntersection()
+    {
+        return g.GetRandomVertex().GetIntersection();
+    }
+
+    public List<Vertex> GetPathToRandomTarget(Vertex from)
+    {
+        Vertex to = null;
+
+        do
+        {
+            to = g.GetRandomVertex();
+        } while (from.Equals(to));
+
+        return g.ShortestPath(from, to);
+    }
 }

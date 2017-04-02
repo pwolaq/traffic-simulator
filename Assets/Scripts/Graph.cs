@@ -1,15 +1,24 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Graph {
     private Dictionary<int, Vertex> g = new Dictionary<int, Vertex>();
-    public List<Vertex> cachedPath = null;
+    private List<Vertex> vertices;
 
-    public Graph(GameObject[] vertices, GameObject[] edges)
+    public Graph(GameObject[] v, GameObject[] e)
     {
-        AddVertices(vertices);
-        AddEdges(edges);
+        AddVertices(v);
+        AddEdges(e);
+
+        vertices = Enumerable.ToList(g.Values);
+    }
+
+    public Vertex GetRandomVertex()
+    {
+        int index = Random.Range(0, vertices.Count);
+        return vertices[index];
     }
 
     private void AddVertices(GameObject[] vertices)
