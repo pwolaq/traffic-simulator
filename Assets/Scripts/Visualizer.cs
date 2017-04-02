@@ -7,7 +7,7 @@ public class Visualizer : MonoBehaviour {
     private Color colorSegments = Color.green;
     private float radius = 3f;
 
-    void OnDrawGizmos()
+    void OnDrawGizmosSelected()
     {
         drawIntersections();
         drawSegments();

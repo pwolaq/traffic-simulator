@@ -17,10 +17,38 @@ public class CarController : MonoBehaviour
     private WheelCollider[] colliders;
     private List<Vertex> waypoints;
 
+    private Color colorIntersections = Color.red;
+    private Color colorSegments = Color.green;
+    private float radius = 3f;
+
     public void Start()
     {
         Initialize();
-        SelectDestination();
+    }
+
+    void OnDrawGizmosSelected()
+    {
+        if (waypoints != null)
+        {
+            Transform prev = null;
+
+            foreach(Vertex vertex in waypoints)
+            {
+                Gizmos.color = colorIntersections;
+                Intersection i = vertex.GetIntersection();
+                Transform transform = i.GetComponent<Transform>();
+                Vector3 position = transform.position;
+                Gizmos.DrawWireSphere(position, radius);
+                Gizmos.color = colorSegments;
+
+                if(prev != null)
+                {
+                    Gizmos.DrawLine(position, prev.position);
+                }
+
+                prev = transform;
+            }
+        }
     }
 
     public void FixedUpdate()
@@ -49,7 +77,7 @@ public class CarController : MonoBehaviour
         }
     }
 
-    private void SelectDestination()
+    public void SelectDestination()
     {
         waypoints = roads.GetPathToRandomTarget(position);
     }

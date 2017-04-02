@@ -2133,11 +2133,12 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1022018507446756}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 755472600df40c54a94d6e9abca59fc8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  roads: {fileID: 0}
   maxMotorTorque: 2000
   maxSteeringAngle: 45
   frontLeft: {fileID: 146641012580095444}

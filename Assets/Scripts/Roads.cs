@@ -12,9 +12,9 @@ public class Roads : MonoBehaviour {
         g = new Graph(vertices, edges);
 	}
 
-    public Intersection GetRandomIntersection()
+    public Vertex GetRandomIntersection()
     {
-        return g.GetRandomVertex().GetIntersection();
+        return g.GetRandomVertex();
     }
 
     public List<Vertex> GetPathToRandomTarget(Vertex from)
