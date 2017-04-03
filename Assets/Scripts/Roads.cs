@@ -17,7 +17,7 @@ public class Roads : MonoBehaviour {
         return g.GetRandomVertex();
     }
 
-    public List<Vertex> GetPathToRandomTarget(Vertex from)
+    public Path GetPathToRandomTarget(Vertex from)
     {
         Vertex to = null;
 

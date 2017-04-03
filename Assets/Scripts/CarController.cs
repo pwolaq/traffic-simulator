@@ -13,7 +13,7 @@ public class CarController : MonoBehaviour
     public WheelCollider rearRight;
 
     private WheelCollider[] colliders;
-    private List<Vertex> waypoints;
+    private Path path;
 
     private const float MAX_ANGLE = 45f;
     private const float MAX_TORQUE = 200f;
@@ -32,25 +32,16 @@ public class CarController : MonoBehaviour
 
     void OnDrawGizmosSelected()
     {
-        if (waypoints != null)
-        {
-            Transform prev = null;
+        Gizmos.color = colorIntersections;
 
-            foreach(Vertex vertex in waypoints)
+        if (path != null)
+        {
+            foreach(Vertex vertex in path.GetVertices())
             {
-                Gizmos.color = colorIntersections;
                 Intersection i = vertex.GetIntersection();
                 Transform transform = i.GetComponent<Transform>();
                 Vector3 position = transform.position;
                 Gizmos.DrawWireSphere(position, radius);
-                Gizmos.color = colorSegments;
-
-                if(prev != null)
-                {
-                    Gizmos.DrawLine(position, prev.position);
-                }
-
-                prev = transform;
             }
         }
     }
@@ -62,18 +53,28 @@ public class CarController : MonoBehaviour
 
     void AdjustWheelPosition()
     {
-        Transform t = waypoints[index].GetIntersection().transform;
+        Transform t = path.GetCurrentTarget();
         Vector3 waypoint = new Vector3(t.position.x, transform.position.y, t.position.z);
         Vector3 steerVector = transform.InverseTransformPoint(waypoint);
         float angle = MAX_ANGLE * (steerVector.x / steerVector.magnitude);
 
-        if (steerVector.magnitude < DISTANCE_MARGIN)
-        {
-            index = (index + 1) % waypoints.Count;
-        }
-
         frontLeft.steerAngle = angle;
         frontRight.steerAngle = angle;
+
+        if (steerVector.magnitude < DISTANCE_MARGIN)
+        {
+            CompleteWaypoint();
+        }
+    }
+
+    private void CompleteWaypoint()
+    {
+        position = path.GetCurrentVertex();
+
+        if (!path.GetNextTarget())
+        {
+            SelectDestination();
+        }
     }
 
     private void Initialize()
@@ -91,7 +92,7 @@ public class CarController : MonoBehaviour
 
     public void SelectDestination()
     {
-        waypoints = roads.GetPathToRandomTarget(position);
+        path = roads.GetPathToRandomTarget(position);
     }
 
     private void ApplyLocalPositionToVisuals(WheelCollider collider)

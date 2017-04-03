@@ -54,7 +54,7 @@ public class Graph {
         }
     }
 
-    public List<Vertex> ShortestPath(Vertex from, Vertex to)
+    public Path ShortestPath(Vertex from, Vertex to)
     {
         return new PathFinder(g, from, to).FindDefaultPath();
     }

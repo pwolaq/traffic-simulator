@@ -18,7 +18,7 @@ public class PathFinder {
         Initialize(graph);
     }
 
-    public List<Vertex> FindDefaultPath()
+    public Path FindDefaultPath()
     {
         while (unvisited.Count > 0)
         {
@@ -80,7 +80,7 @@ public class PathFinder {
         }
     }
 
-    private List<Vertex> GetPath()
+    private Path GetPath()
     {
         List<Vertex> path = new List<Vertex>();
 
@@ -91,6 +91,7 @@ public class PathFinder {
         }
 
         path.Reverse();
-        return path;
+
+        return new Path(path);
     }
 }
