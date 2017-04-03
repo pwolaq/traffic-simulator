@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class Edge {
+﻿public class Edge {
     private Segment segment;
     private Vertex a;
     private Vertex b;

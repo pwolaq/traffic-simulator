@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using System.Collections.Generic;
 
 public class PathFinder {
     private Dictionary<Vertex, int> distances = new Dictionary<Vertex, int>();
