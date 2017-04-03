@@ -6,11 +6,23 @@ public class Vehicles : MonoBehaviour {
     public Roads roads;
     public GameObject car;
 
+    private const float INTERVAL = 1f;
+    private const int MAX_CARS = 3;
+
+    private int count = 0;
+
     void Start()
     {
-        AddCar();
-        AddCar();
-        AddCar();
+        StartCoroutine(AddVehicles());
+    }
+
+    IEnumerator AddVehicles()
+    {
+        while (count < MAX_CARS)
+        {
+            AddCar();
+            yield return new WaitForSeconds(INTERVAL + Random.Range(0, INTERVAL));
+        }
     }
 
     private void AddCar()
@@ -22,5 +34,6 @@ public class Vehicles : MonoBehaviour {
         ctrl.position = vertex;
         ctrl.roads = roads;
         ctrl.SelectDestination();
+        count++;
     }
 }
