@@ -17,10 +17,7 @@ public class CarController : MonoBehaviour
     private const float MAX_TORQUE = 200f;
     private const float DISTANCE_MARGIN = 10f;
 
-    private int index = 0;
-
     private Color colorIntersections = Color.red;
-    private Color colorSegments = Color.green;
     private float radius = 3f;
 
     public void Start()
@@ -36,8 +33,7 @@ public class CarController : MonoBehaviour
         {
             foreach(Vertex vertex in path.GetVertices())
             {
-                Intersection i = vertex.GetIntersection();
-                Transform transform = i.GetComponent<Transform>();
+                Transform transform = vertex.transform;
                 Vector3 position = transform.position;
                 Gizmos.DrawWireSphere(position, radius);
             }

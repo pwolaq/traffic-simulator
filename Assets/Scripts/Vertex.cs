@@ -1,13 +1,9 @@
 ﻿using System.Collections.Generic;
+using UnityEngine;
 
-public class Vertex {
-    private Intersection intersection;
+public class Vertex : MonoBehaviour
+{
     private List<Edge> edges = new List<Edge>();
-
-    public Vertex(Intersection obj)
-    {
-        intersection = obj;
-    }
 
     public void AddEdge(Edge e)
     {
@@ -17,15 +13,5 @@ public class Vertex {
     public List<Edge> GetEdges()
     {
         return edges;
-    }
-
-    public Intersection GetIntersection()
-    {
-        return intersection;
-    }
-
-    public override string ToString()
-    {
-        return "Intersection #" + intersection.GetInstanceID().ToString("X");
     }
 }

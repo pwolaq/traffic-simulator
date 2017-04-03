@@ -15,12 +15,9 @@ public class Visualizer : MonoBehaviour {
     {
         Gizmos.color = colorIntersections;
 
-        GameObject[] intersections = GameObject.FindGameObjectsWithTag("Intersection");
-
-        foreach (GameObject intersection in intersections)
+        foreach (Vertex v in GetComponentsInChildren<Vertex>())
         {
-            Transform transform = intersection.GetComponent<Transform>();
-            Vector3 position = transform.position;
+            Vector3 position = v.transform.position;
             Gizmos.DrawWireSphere(position, radius);
         }
     }
@@ -29,16 +26,12 @@ public class Visualizer : MonoBehaviour {
     {
         Gizmos.color = colorSegments;
 
-        GameObject[] segments = GameObject.FindGameObjectsWithTag("Segment");
-
-        foreach (GameObject segment in segments)
+        foreach (Edge e in GetComponentsInChildren<Edge>())
         {
-            Segment s = segment.GetComponent<Segment>();
-          
-            if (s.intersectionA != null && s.intersectionB != null)
+            if (e.GetA() != null && e.GetB() != null)
             {
-                Vector3 positionA = s.intersectionA.GetComponent<Transform>().position;
-                Vector3 positionB = s.intersectionB.GetComponent<Transform>().position;
+                Vector3 positionA = e.GetA().transform.position;
+                Vector3 positionB = e.GetB().transform.position;
 
                 positionA.y += 1;
                 positionB.y += 1;

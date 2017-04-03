@@ -4,10 +4,7 @@ public class Roads : MonoBehaviour {
     private Graph g;
 
 	void Awake () {
-        GameObject[] vertices = GameObject.FindGameObjectsWithTag("Intersection");
-        GameObject[] edges = GameObject.FindGameObjectsWithTag("Segment");
-
-        g = new Graph(vertices, edges);
+        g = new Graph(GetComponentsInChildren<Vertex>());
 	}
 
     public Vertex GetRandomIntersection()

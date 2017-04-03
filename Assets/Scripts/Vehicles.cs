@@ -27,7 +27,7 @@ public class Vehicles : MonoBehaviour {
     private void AddCar()
     {
         Vertex vertex = roads.GetRandomIntersection();
-        GameObject obj = Instantiate(car, vertex.GetIntersection().transform.position, Quaternion.identity);
+        GameObject obj = Instantiate(car, vertex.transform.position, Quaternion.identity);
         obj.transform.parent = transform;
         CarController ctrl = obj.GetComponent<CarController>();
         ctrl.position = vertex;

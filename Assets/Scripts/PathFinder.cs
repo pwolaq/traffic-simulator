@@ -8,12 +8,12 @@ public class PathFinder {
     private Vertex from;
     private Vertex to;
 
-    public PathFinder(Dictionary<int, Vertex> graph, Vertex vFrom, Vertex vTo)
+    public PathFinder(Vertex[] vertices, Vertex vFrom, Vertex vTo)
     {
         from = vFrom;
         to = vTo;
 
-        Initialize(graph);
+        Initialize(vertices);
     }
 
     public Path FindDefaultPath()
@@ -34,9 +34,9 @@ public class PathFinder {
         return GetPath();
     }
 
-    private void Initialize(Dictionary<int, Vertex> graph)
+    private void Initialize(Vertex[] vertices)
     {
-        foreach (Vertex vertex in graph.Values)
+        foreach (Vertex vertex in vertices)
         {
             distances.Add(vertex, int.MaxValue);
             previous.Add(vertex, null);

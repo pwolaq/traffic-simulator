@@ -17,7 +17,7 @@ public class Path {
 
     public Transform GetCurrentTarget()
     {
-        return GetCurrentVertex().GetIntersection().transform;
+        return GetCurrentVertex().transform;
     }
 
     public List<Vertex> GetVertices()
