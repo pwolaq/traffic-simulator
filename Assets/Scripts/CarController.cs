@@ -5,8 +5,6 @@ using System.Collections.Generic;
 public class CarController : MonoBehaviour
 {
     public Roads roads;
-    public float maxMotorTorque;
-    public float maxSteeringAngle;
     public Vertex position;
 
     public WheelCollider frontLeft;
@@ -16,6 +14,12 @@ public class CarController : MonoBehaviour
 
     private WheelCollider[] colliders;
     private List<Vertex> waypoints;
+
+    private const float MAX_ANGLE = 45f;
+    private const float MAX_TORQUE = 200f;
+    private const float DISTANCE_MARGIN = 10f;
+
+    private int index = 0;
 
     private Color colorIntersections = Color.red;
     private Color colorSegments = Color.green;
@@ -51,20 +55,25 @@ public class CarController : MonoBehaviour
         }
     }
 
-    public void FixedUpdate()
+    void Update()
     {
-        float motor = maxMotorTorque * Input.GetAxis("Vertical");
-        float steering = maxSteeringAngle * Input.GetAxis("Horizontal");
+        AdjustWheelPosition();
+    }
 
-        frontLeft.steerAngle = steering;
-        frontRight.steerAngle = steering;
+    void AdjustWheelPosition()
+    {
+        Transform t = waypoints[index].GetIntersection().transform;
+        Vector3 waypoint = new Vector3(t.position.x, transform.position.y, t.position.z);
+        Vector3 steerVector = transform.InverseTransformPoint(waypoint);
+        float angle = MAX_ANGLE * (steerVector.x / steerVector.magnitude);
 
-        rearLeft.motorTorque = motor;
-        rearRight.motorTorque = motor;
-
-        foreach (WheelCollider collider in colliders) {
-            ApplyLocalPositionToVisuals(collider);
+        if (steerVector.magnitude < DISTANCE_MARGIN)
+        {
+            index = (index + 1) % waypoints.Count;
         }
+
+        frontLeft.steerAngle = angle;
+        frontRight.steerAngle = angle;
     }
 
     private void Initialize()
@@ -75,6 +84,9 @@ public class CarController : MonoBehaviour
         {
             collider.ConfigureVehicleSubsteps(5, 12, 15);
         }
+
+        rearLeft.motorTorque = MAX_TORQUE;
+        rearRight.motorTorque = MAX_TORQUE;
     }
 
     public void SelectDestination()

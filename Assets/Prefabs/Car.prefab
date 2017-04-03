@@ -2139,8 +2139,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roads: {fileID: 0}
-  maxMotorTorque: 2000
-  maxSteeringAngle: 45
   frontLeft: {fileID: 146641012580095444}
   frontRight: {fileID: 146458571787820448}
   rearLeft: {fileID: 146000339749134488}
