@@ -7,9 +7,9 @@ public class Roads : MonoBehaviour {
         g = new Graph(GetComponentsInChildren<Vertex>());
 	}
 
-    public Vertex GetRandomIntersection()
+    public Vertex GetRandomRespawn()
     {
-        return g.GetRandomVertex();
+        return g.GetRandomRespawn();
     }
 
     public Path GetPathToRandomTarget(Vertex from)

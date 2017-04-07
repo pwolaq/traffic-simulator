@@ -5,8 +5,8 @@ public class Vehicles : MonoBehaviour {
     public Roads roads;
     public GameObject car;
 
-    private const float INTERVAL = 1f;
-    private const int MAX_CARS = 3;
+    private const float INTERVAL = 3f;
+    private const int MAX_CARS = 5;
 
     private int count = 0;
 
@@ -19,14 +19,14 @@ public class Vehicles : MonoBehaviour {
     {
         while (count < MAX_CARS)
         {
-            AddCar();
             yield return new WaitForSeconds(INTERVAL + Random.Range(0, INTERVAL));
+            AddCar();
         }
     }
 
     private void AddCar()
     {
-        Vertex vertex = roads.GetRandomIntersection();
+        Vertex vertex = roads.GetRandomRespawn();
         GameObject obj = Instantiate(car, vertex.transform.position, Quaternion.identity);
         obj.transform.parent = transform;
         CarController ctrl = obj.GetComponent<CarController>();

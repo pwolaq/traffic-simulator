@@ -28,10 +28,10 @@ public class Visualizer : MonoBehaviour {
 
         foreach (Edge e in GetComponentsInChildren<Edge>())
         {
-            if (e.GetA() != null && e.GetB() != null)
+            if (e.GetVertexA() != null && e.GetVertexB() != null)
             {
-                Vector3 positionA = e.GetA().transform.position;
-                Vector3 positionB = e.GetB().transform.position;
+                Vector3 positionA = e.GetVertexA().transform.position;
+                Vector3 positionB = e.GetVertexB().transform.position;
 
                 positionA.y += 1;
                 positionB.y += 1;

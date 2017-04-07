@@ -16,6 +16,13 @@ public class Graph {
         return vertices[index];
     }
 
+    public Vertex GetRandomRespawn()
+    {
+        GameObject[] respawns = GameObject.FindGameObjectsWithTag("Respawn");
+        int index = Random.Range(0, respawns.Length);
+        return respawns[index].GetComponent<Vertex>();
+    }
+
     public Path ShortestPath(Vertex from, Vertex to)
     {
         return new PathFinder(vertices, from, to).FindDefaultPath();

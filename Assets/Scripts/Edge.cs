@@ -2,8 +2,11 @@
 
 public class Edge : MonoBehaviour
 {
-    private Vertex a;
-    private Vertex b;
+    private Vertex vertexA;
+    private Vertex vertexB;
+    private Vector3 positionA;
+    private Vector3 positionB;
+
     private const float MARGIN = 50f;
 
     public void Start()
@@ -17,58 +20,66 @@ public class Edge : MonoBehaviour
         {
             bounds.Encapsulate(child.gameObject.GetComponent<Renderer>().bounds);
         }
-
-        Vector3 _a, _b;
         
         if(bounds.extents.x > bounds.extents.z)
         {
-            _a = transform.position + new Vector3(bounds.extents.x / 2, 0, 0);
-            _b = transform.position - new Vector3(bounds.extents.x / 2, 0, 0);
+            positionA = transform.position + new Vector3(bounds.extents.x / 2, 0, 0);
+            positionB = transform.position - new Vector3(bounds.extents.x / 2, 0, 0);
         }
         else
         {
-            _a = transform.position + new Vector3(0, 0, bounds.extents.z / 2);
-            _b = transform.position - new Vector3(0, 0, bounds.extents.z / 2);
+            positionA = transform.position + new Vector3(0, 0, bounds.extents.z / 2);
+            positionB = transform.position - new Vector3(0, 0, bounds.extents.z / 2);
         }
 
         foreach(Vertex vertex in vertices)
         {
-            if(Vector3.Distance(vertex.transform.position, _a) < MARGIN)
+            if(Vector3.Distance(vertex.transform.position, positionA) < MARGIN)
             {
-                a = vertex;
+                vertexA = vertex;
             }
-            else if(Vector3.Distance(vertex.transform.position, _b) < MARGIN)
+            else if(Vector3.Distance(vertex.transform.position, positionB) < MARGIN)
             {
-                b = vertex;
+                vertexB = vertex;
             }
         }
 
-        if(a != null && b != null)
+        if(vertexA != null && vertexB != null)
         {
-            a.AddEdge(this);
-            b.AddEdge(this);
+            vertexA.AddEdge(this);
+            vertexB.AddEdge(this);
         }
     }
 
-    public Vertex GetA()
+    public Vertex GetVertexA()
     {
-        return a;
+        return vertexA;
     }
 
-    public Vertex GetB()
+    public Vertex GetVertexB()
     {
-        return b;
+        return vertexB;
+    }
+
+    public Vector3 GetPositionA()
+    {
+        return positionA;
+    }
+
+    public Vector3 GetPositionB()
+    {
+        return positionB;
     }
 
     public Vertex GetNeighbor(Vertex from)
     {
-        if (a.Equals(from))
+        if (vertexA.Equals(from))
         {
-            return b;
+            return vertexB;
         }
         else
         {
-            return a;
+            return vertexA;
         }
     }
 

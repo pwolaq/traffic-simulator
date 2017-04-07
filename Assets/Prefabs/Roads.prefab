@@ -438,7 +438,7 @@ GameObject:
   - component: {fileID: 114416406457515200}
   m_Layer: 0
   m_Name: Intersection (9)
-  m_TagString: Intersection
+  m_TagString: Respawn
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

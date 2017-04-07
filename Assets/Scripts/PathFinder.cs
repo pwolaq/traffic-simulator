@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class PathFinder {
     private Dictionary<Vertex, int> distances = new Dictionary<Vertex, int>();
@@ -53,7 +54,7 @@ public class PathFinder {
 
         foreach (Vertex v in unvisited)
         {
-            if (distances[v] < min)
+            if (distances[v] <= min)
             {
                 min = distances[v];
                 vertex = v;

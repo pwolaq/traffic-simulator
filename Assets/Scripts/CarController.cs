@@ -45,10 +45,19 @@ public class CarController : MonoBehaviour
         AdjustWheelPosition();
     }
 
+    void CompleteWaypoint()
+    {
+        if (!path.GetNext())
+        {
+            SelectDestination();
+        }
+    }
+
     void AdjustWheelPosition()
     {
-        Transform t = path.GetCurrentTarget();
-        Vector3 waypoint = new Vector3(t.position.x, transform.position.y, t.position.z);
+        Vector3 waypoint = path.GetCurrentTarget();
+        waypoint.y = transform.position.y;
+
         Vector3 steerVector = transform.InverseTransformPoint(waypoint);
         float angle = MAX_ANGLE * (steerVector.x / steerVector.magnitude);
 
@@ -58,16 +67,6 @@ public class CarController : MonoBehaviour
         if (steerVector.magnitude < DISTANCE_MARGIN)
         {
             CompleteWaypoint();
-        }
-    }
-
-    private void CompleteWaypoint()
-    {
-        position = path.GetCurrentVertex();
-
-        if (!path.GetNextTarget())
-        {
-            SelectDestination();
         }
     }
 
