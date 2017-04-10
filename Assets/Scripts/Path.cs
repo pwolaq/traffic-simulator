@@ -41,11 +41,11 @@ public class Path {
         {
             if (a.x > b.x)
             {
-                AddSegmentWaypoints(waypoints, a, b, new Vector3(-mainOffset, 0, 0), new Vector3(sideOffset, 0, 0));
+                AddSegmentWaypoints(waypoints, a, b, new Vector3(-mainOffset, 0, 0), new Vector3(0, 0, sideOffset));
             }
             else
             {
-                AddSegmentWaypoints(waypoints, a, b, new Vector3(mainOffset, 0, 0), new Vector3(-sideOffset, 0, 0));
+                AddSegmentWaypoints(waypoints, a, b, new Vector3(mainOffset, 0, 0), new Vector3(0, 0, -sideOffset));
             }
         }
         
