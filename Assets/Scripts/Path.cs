@@ -23,34 +23,37 @@ public class Path {
         List<Vector3> waypoints = new List<Vector3>();
         Vector3 a = from.transform.position;
         Vector3 b = to.transform.position;
-        Vector3 offset;
+        Vector3 mainOffset;
+        Vector3 sideOffset;
 
         if(Mathf.Approximately(a.x, b.x))
         {
-            offset = new Vector3(0, 0, 15f);
+            mainOffset = new Vector3(0, 0, 15f);
+            sideOffset = new Vector3(3f, 0, 0);
 
             if(a.z > b.z)
             {
-                waypoints.Add(a - offset);
-                waypoints.Add(b + offset);
+                waypoints.Add(a - mainOffset - sideOffset);
+                waypoints.Add(b + mainOffset - sideOffset);
             } else
             {
-                waypoints.Add(a + offset);
-                waypoints.Add(b - offset);
+                waypoints.Add(a + mainOffset + sideOffset);
+                waypoints.Add(b - mainOffset + sideOffset);
             }
         } else
         {
-            offset = new Vector3(15f, 0, 0);
+            mainOffset = new Vector3(15f, 0, 0);
+            sideOffset = new Vector3(0, 0, 3f);
 
             if (a.x > b.x)
             {
-                waypoints.Add(a - offset);
-                waypoints.Add(b + offset);
+                waypoints.Add(a - mainOffset - sideOffset);
+                waypoints.Add(b + mainOffset - sideOffset);
             }
             else
             {
-                waypoints.Add(a + offset);
-                waypoints.Add(b - offset);
+                waypoints.Add(a + mainOffset + sideOffset);
+                waypoints.Add(b - mainOffset + sideOffset);
             }
         }
 
