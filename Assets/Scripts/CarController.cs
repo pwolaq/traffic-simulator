@@ -5,6 +5,7 @@ public class CarController : MonoBehaviour
 {
     public Roads roads;
     public Vertex position;
+    public Transform body;
 
     public WheelCollider frontLeft;
     public WheelCollider frontRight;
@@ -16,7 +17,7 @@ public class CarController : MonoBehaviour
     private float torque;
 
     private const float MAX_ANGLE = 45f;
-    private const float MAX_TORQUE = 200f;
+    private const float MAX_TORQUE = 100f;
     private const float DISTANCE_MARGIN = 5f;
 
     private Color colorIntersections = Color.red;
@@ -87,6 +88,22 @@ public class CarController : MonoBehaviour
 
         rearLeft.motorTorque = torque;
         rearRight.motorTorque = torque;
+
+        SetRandomColor();
+    }
+
+    private void SetRandomColor()
+    {
+        Color color = new Color(Random.value, Random.value, Random.value, 1.0f);
+
+        foreach (Renderer renderer in body.GetComponentsInChildren<Renderer>())
+        {
+            if ("Classic_16_Body (Instance)".Equals(renderer.material.name))
+            {
+                renderer.material.color = color;
+                renderer.material.SetColor("_EmissionColor", color);
+            }
+        }
     }
 
     public void SelectDestination()
