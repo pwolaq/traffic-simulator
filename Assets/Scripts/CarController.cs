@@ -18,7 +18,7 @@ public class CarController : MonoBehaviour
     private const float DISTANCE_MARGIN = 10f;
 
     private Color colorIntersections = Color.red;
-    private float radius = 3f;
+    private float radius = 2f;
 
     public void Start()
     {
@@ -64,6 +64,8 @@ public class CarController : MonoBehaviour
         frontLeft.steerAngle = angle;
         frontRight.steerAngle = angle;
 
+        ApplyLocalPositionToVisuals();
+
         if (steerVector.magnitude < DISTANCE_MARGIN)
         {
             CompleteWaypoint();
@@ -86,6 +88,14 @@ public class CarController : MonoBehaviour
     public void SelectDestination()
     {
         path = roads.GetPathToRandomTarget(position);
+    }
+
+    private void ApplyLocalPositionToVisuals()
+    {
+        ApplyLocalPositionToVisuals(frontLeft);
+        ApplyLocalPositionToVisuals(frontRight);
+        ApplyLocalPositionToVisuals(rearLeft);
+        ApplyLocalPositionToVisuals(rearRight);
     }
 
     private void ApplyLocalPositionToVisuals(WheelCollider collider)
