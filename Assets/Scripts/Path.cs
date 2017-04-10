@@ -25,40 +25,48 @@ public class Path {
         Vector3 b = to.transform.position;
         Vector3 mainOffset;
         Vector3 sideOffset;
+        Vector3 stabilizationOffset;
 
         if(Mathf.Approximately(a.x, b.x))
         {
             mainOffset = new Vector3(0, 0, 15f);
-            sideOffset = new Vector3(3f, 0, 0);
+            sideOffset = new Vector3(2f, 0, 0);
+            stabilizationOffset = mainOffset * 1.5f;
 
             if(a.z > b.z)
             {
                 waypoints.Add(a - mainOffset - sideOffset);
+                waypoints.Add(a - mainOffset - stabilizationOffset - sideOffset);
+                waypoints.Add(b + mainOffset + stabilizationOffset - sideOffset);
                 waypoints.Add(b + mainOffset - sideOffset);
             } else
             {
                 waypoints.Add(a + mainOffset + sideOffset);
+                waypoints.Add(a + mainOffset + stabilizationOffset + sideOffset);
+                waypoints.Add(b - mainOffset - stabilizationOffset + sideOffset);
                 waypoints.Add(b - mainOffset + sideOffset);
             }
         } else
         {
             mainOffset = new Vector3(15f, 0, 0);
-            sideOffset = new Vector3(0, 0, 3f);
+            sideOffset = new Vector3(0, 0, 2f);
+            stabilizationOffset = mainOffset * 1.5f;
 
             if (a.x > b.x)
             {
-                waypoints.Add(a - mainOffset - sideOffset);
-                waypoints.Add(b + mainOffset - sideOffset);
+                waypoints.Add(a - mainOffset + sideOffset);
+                waypoints.Add(a - mainOffset - stabilizationOffset + sideOffset);
+                waypoints.Add(b + mainOffset + stabilizationOffset + sideOffset);
+                waypoints.Add(b + mainOffset + sideOffset);
             }
             else
             {
-                waypoints.Add(a + mainOffset + sideOffset);
-                waypoints.Add(b - mainOffset + sideOffset);
+                waypoints.Add(a + mainOffset - sideOffset);
+                waypoints.Add(a + mainOffset + stabilizationOffset - sideOffset);
+                waypoints.Add(b - mainOffset - stabilizationOffset - sideOffset);
+                waypoints.Add(b - mainOffset - sideOffset);
             }
         }
-
-        Debug.Log(waypoints[0]);
-        Debug.Log(waypoints[1]);
         
         return waypoints;
     }
