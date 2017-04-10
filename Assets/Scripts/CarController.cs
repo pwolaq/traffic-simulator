@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Linq;
 
 public class CarController : MonoBehaviour
 {
@@ -12,13 +13,14 @@ public class CarController : MonoBehaviour
 
     private WheelCollider[] colliders;
     private Path path;
+    private float torque;
 
     private const float MAX_ANGLE = 45f;
     private const float MAX_TORQUE = 200f;
-    private const float DISTANCE_MARGIN = 10f;
+    private const float DISTANCE_MARGIN = 5f;
 
     private Color colorIntersections = Color.red;
-    private float radius = 2f;
+    private float radius = 3f;
 
     public void Start()
     {
@@ -49,6 +51,7 @@ public class CarController : MonoBehaviour
     {
         if (!path.GetNext())
         {
+            position = path.GetVertices().Last<Vertex>();
             SelectDestination();
         }
     }
@@ -74,6 +77,7 @@ public class CarController : MonoBehaviour
 
     private void Initialize()
     {
+        torque = Random.Range(MAX_TORQUE / 2, MAX_TORQUE);
         colliders = new WheelCollider[] { frontLeft, frontRight, rearLeft, rearRight };
 
         foreach (WheelCollider collider in colliders)
@@ -81,8 +85,8 @@ public class CarController : MonoBehaviour
             collider.ConfigureVehicleSubsteps(5, 12, 15);
         }
 
-        rearLeft.motorTorque = MAX_TORQUE;
-        rearRight.motorTorque = MAX_TORQUE;
+        rearLeft.motorTorque = torque;
+        rearRight.motorTorque = torque;
     }
 
     public void SelectDestination()

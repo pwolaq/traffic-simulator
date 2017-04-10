@@ -23,52 +23,42 @@ public class Path {
         List<Vector3> waypoints = new List<Vector3>();
         Vector3 a = from.transform.position;
         Vector3 b = to.transform.position;
-        Vector3 mainOffset;
-        Vector3 sideOffset;
-        Vector3 stabilizationOffset;
+        float mainOffset = 10f;
+        float sideOffset = 2f;
 
         if(Mathf.Approximately(a.x, b.x))
         {
-            mainOffset = new Vector3(0, 0, 15f);
-            sideOffset = new Vector3(2f, 0, 0);
-            stabilizationOffset = mainOffset * 1.5f;
-
             if(a.z > b.z)
             {
-                waypoints.Add(a - mainOffset - sideOffset);
-                waypoints.Add(a - mainOffset - stabilizationOffset - sideOffset);
-                waypoints.Add(b + mainOffset + stabilizationOffset - sideOffset);
-                waypoints.Add(b + mainOffset - sideOffset);
-            } else
-            {
-                waypoints.Add(a + mainOffset + sideOffset);
-                waypoints.Add(a + mainOffset + stabilizationOffset + sideOffset);
-                waypoints.Add(b - mainOffset - stabilizationOffset + sideOffset);
-                waypoints.Add(b - mainOffset + sideOffset);
-            }
-        } else
-        {
-            mainOffset = new Vector3(15f, 0, 0);
-            sideOffset = new Vector3(0, 0, 2f);
-            stabilizationOffset = mainOffset * 1.5f;
-
-            if (a.x > b.x)
-            {
-                waypoints.Add(a - mainOffset + sideOffset);
-                waypoints.Add(a - mainOffset - stabilizationOffset + sideOffset);
-                waypoints.Add(b + mainOffset + stabilizationOffset + sideOffset);
-                waypoints.Add(b + mainOffset + sideOffset);
+                AddSegmentWaypoints(waypoints, a, b, new Vector3(0, 0, -mainOffset), new Vector3(-sideOffset, 0, 0));
             }
             else
             {
-                waypoints.Add(a + mainOffset - sideOffset);
-                waypoints.Add(a + mainOffset + stabilizationOffset - sideOffset);
-                waypoints.Add(b - mainOffset - stabilizationOffset - sideOffset);
-                waypoints.Add(b - mainOffset - sideOffset);
+                AddSegmentWaypoints(waypoints, a, b, new Vector3(0, 0, mainOffset), new Vector3(sideOffset, 0, 0));
+            }
+        }
+        else
+        {
+            if (a.x > b.x)
+            {
+                AddSegmentWaypoints(waypoints, a, b, new Vector3(-mainOffset, 0, 0), new Vector3(sideOffset, 0, 0));
+            }
+            else
+            {
+                AddSegmentWaypoints(waypoints, a, b, new Vector3(mainOffset, 0, 0), new Vector3(-sideOffset, 0, 0));
             }
         }
         
         return waypoints;
+    }
+
+    private static void AddSegmentWaypoints(List<Vector3> waypoints, Vector3 a, Vector3 b, Vector3 mainOffset, Vector3 sideOffset)
+    {
+        Vector3 stabilizationOffset = mainOffset * 3f;
+        waypoints.Add(a + mainOffset + sideOffset);
+        waypoints.Add(a + stabilizationOffset + sideOffset);
+        waypoints.Add(b - stabilizationOffset + sideOffset);
+        waypoints.Add(b - mainOffset + sideOffset);
     }
 
     public Path(List<Vertex> list)
