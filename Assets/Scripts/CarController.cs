@@ -98,7 +98,7 @@ public class CarController : MonoBehaviour
 
         foreach (Renderer renderer in body.GetComponentsInChildren<Renderer>())
         {
-            if ("Classic_16_Body (Instance)".Equals(renderer.material.name))
+            if (renderer.CompareTag("Repaintable"))
             {
                 renderer.material.color = color;
                 renderer.material.SetColor("_EmissionColor", color);

@@ -88,7 +88,7 @@ GameObject:
   - component: {fileID: 23043891170950148}
   m_Layer: 0
   m_Name: Classic_16_Door_R
-  m_TagString: Untagged
+  m_TagString: Repaintable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -252,7 +252,7 @@ GameObject:
   - component: {fileID: 23037773258902054}
   m_Layer: 0
   m_Name: Classic_16_SidePanel_2
-  m_TagString: Untagged
+  m_TagString: Repaintable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -331,7 +331,7 @@ GameObject:
   - component: {fileID: 23113212466826078}
   m_Layer: 0
   m_Name: Classic_16_Roof
-  m_TagString: Untagged
+  m_TagString: Repaintable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -444,7 +444,7 @@ GameObject:
   - component: {fileID: 23881015880689276}
   m_Layer: 0
   m_Name: Classic_16_Hood
-  m_TagString: Untagged
+  m_TagString: Repaintable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -477,7 +477,7 @@ GameObject:
   - component: {fileID: 23569967554194228}
   m_Layer: 0
   m_Name: Classic_16_Bumper_B_1
-  m_TagString: Untagged
+  m_TagString: Repaintable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -573,7 +573,7 @@ GameObject:
   - component: {fileID: 23727170664420152}
   m_Layer: 0
   m_Name: Classic_16_Bumper_F_1
-  m_TagString: Untagged
+  m_TagString: Repaintable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -590,7 +590,7 @@ GameObject:
   - component: {fileID: 23663772759852652}
   m_Layer: 0
   m_Name: Classic_16_Trunk
-  m_TagString: Untagged
+  m_TagString: Repaintable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -655,7 +655,7 @@ GameObject:
   - component: {fileID: 23596160540322860}
   m_Layer: 0
   m_Name: Classic_16_Door_L
-  m_TagString: Untagged
+  m_TagString: Repaintable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -689,7 +689,7 @@ GameObject:
   - component: {fileID: 23956242121789418}
   m_Layer: 0
   m_Name: Classic_16_Body
-  m_TagString: Untagged
+  m_TagString: Repaintable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
