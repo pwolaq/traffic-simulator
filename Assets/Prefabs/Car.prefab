@@ -2141,6 +2141,7 @@ MonoBehaviour:
   roads: {fileID: 0}
   position: {fileID: 0}
   body: {fileID: 4682990680851308}
+  rb: {fileID: 54702930805438728}
   frontLeft: {fileID: 146641012580095444}
   frontRight: {fileID: 146458571787820448}
   rearLeft: {fileID: 146000339749134488}

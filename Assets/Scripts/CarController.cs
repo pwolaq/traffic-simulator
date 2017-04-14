@@ -6,6 +6,7 @@ public class CarController : MonoBehaviour
     public Roads roads;
     public Vertex position;
     public Transform body;
+    public Rigidbody rb;
 
     public WheelCollider frontLeft;
     public WheelCollider frontRight;
@@ -46,6 +47,7 @@ public class CarController : MonoBehaviour
     void Update()
     {
         AdjustWheelPosition();
+        // Debug.Log(rb.velocity.magnitude * 3.6); // speed in km/h
     }
 
     void CompleteWaypoint()
