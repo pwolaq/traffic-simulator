@@ -18,7 +18,7 @@ public class CarController : MonoBehaviour
 
     private const float MAX_ANGLE = 45f;
     private const float MAX_TORQUE = 100f;
-    private const float DISTANCE_MARGIN = 5f;
+    private const float DISTANCE_MARGIN = 2f;
 
     private Color colorIntersections = Color.red;
     private float radius = 3f;

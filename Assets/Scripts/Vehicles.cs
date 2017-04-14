@@ -5,7 +5,7 @@ public class Vehicles : MonoBehaviour {
     public Roads roads;
     public GameObject car;
 
-    private const float INTERVAL = 3f;
+    private const float INTERVAL = 5f;
     private const int MAX_CARS = 5;
 
     private int count = 0;
