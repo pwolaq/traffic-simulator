@@ -21,17 +21,22 @@ public class Segment {
             {
                 sideOffset = -sideOffset;
             }
-        }
-        else if (a.z > b.z)
-        {
-            mainOffset = -mainOffset;
-            sideOffset = -sideOffset;
-        }
 
-        this.AddWaypoints(waypoints, a, b, new Vector3(0, 0, mainOffset), new Vector3(sideOffset, 0, 0));
+            this.AddWaypoints(a, b, new Vector3(mainOffset, 0, 0), new Vector3(0, 0, sideOffset));
+        }
+        else
+        {
+            if (a.z > b.z)
+            {
+                mainOffset = -mainOffset;
+                sideOffset = -sideOffset;
+            }
+
+            this.AddWaypoints(a, b, new Vector3(0, 0, mainOffset), new Vector3(sideOffset, 0, 0));
+        }
     }
 
-    private void AddWaypoints(List<Vector3> waypoints, Vector3 a, Vector3 b, Vector3 mainOffset, Vector3 sideOffset)
+    private void AddWaypoints(Vector3 a, Vector3 b, Vector3 mainOffset, Vector3 sideOffset)
     {
         Vector3 stabilizationOffset = mainOffset * 3f;
         waypoints.Add(a + mainOffset + sideOffset);
