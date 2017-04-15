@@ -9,13 +9,22 @@ public class Path {
 
     public IEnumerator<List<Vector3>> PathIterator()
     {
-        for(int index = 0, count = vertices.Count; index < count - 1; index++)
+        int index = 0;
+        int count = vertices.Count;
+        List<Vector3> turn;
+        yield return new Segment(vertices[index], vertices[index + 1]).GetPath();
+
+        for (index = 1; index < count - 1; index++)
         {
+            turn = new Turn(vertices[index - 1], vertices[index], vertices[index + 1]).GetPath();
+
+            if(turn.Count > 0)
+            {
+                yield return turn;
+            }
+
             yield return new Segment(vertices[index], vertices[index + 1]).GetPath();
         }
-        // go straight from vertices[index] to vertices[index+1]
-        // index++
-        // make a turn
     }
 
     public Path(List<Vertex> list)
