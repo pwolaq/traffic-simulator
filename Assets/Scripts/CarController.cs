@@ -17,6 +17,8 @@ public class CarController : MonoBehaviour
     private Path path;
     private float torque;
 
+    private const float BRAKE_TORQUE = 10f;
+    private const float MAX_SPEED = 30f;
     private const float MAX_ANGLE = 45f;
     private const float MAX_TORQUE = 100f;
     private const float DISTANCE_MARGIN = 2f;
@@ -47,7 +49,7 @@ public class CarController : MonoBehaviour
     void Update()
     {
         AdjustWheelPosition();
-        // Debug.Log(rb.velocity.magnitude * 3.6); // speed in km/h
+        AdjustSpeed();
     }
 
     void CompleteWaypoint()
@@ -57,6 +59,30 @@ public class CarController : MonoBehaviour
             position = path.GetVertices().Last<Vertex>();
             SelectDestination();
         }
+    }
+
+    void AdjustSpeed()
+    {
+        float speed = rb.velocity.magnitude * 3.6f; // speed in km/h
+
+        if (speed <= MAX_SPEED)
+        {
+            SetTorque(torque, 0);
+        }
+        else
+        {
+            SetTorque(0, 0);
+        }
+    }
+
+    void SetTorque(float motor, float brake)
+    {
+        frontLeft.motorTorque = motor;
+        frontRight.motorTorque = motor;
+        frontLeft.brakeTorque = brake;
+        frontRight.brakeTorque = brake;
+        rearLeft.brakeTorque = brake;
+        rearRight.brakeTorque = brake;
     }
 
     void AdjustWheelPosition()
@@ -87,9 +113,6 @@ public class CarController : MonoBehaviour
         {
             collider.ConfigureVehicleSubsteps(5, 12, 15);
         }
-
-        rearLeft.motorTorque = torque;
-        rearRight.motorTorque = torque;
 
         SetRandomColor();
     }
