@@ -22,7 +22,7 @@ public class Segment {
                 sideOffset = -sideOffset;
             }
 
-            this.AddWaypoints(a, b, new Vector3(mainOffset, 0, 0), new Vector3(0, 0, sideOffset));
+            AddWaypoints(a, b, new Vector3(mainOffset, 0, 0), new Vector3(0, 0, sideOffset));
         }
         else
         {
@@ -32,7 +32,7 @@ public class Segment {
                 sideOffset = -sideOffset;
             }
 
-            this.AddWaypoints(a, b, new Vector3(0, 0, mainOffset), new Vector3(sideOffset, 0, 0));
+            AddWaypoints(a, b, new Vector3(0, 0, mainOffset), new Vector3(sideOffset, 0, 0));
         }
     }
 

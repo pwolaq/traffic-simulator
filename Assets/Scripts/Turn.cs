@@ -11,7 +11,7 @@ public class Turn {
         Vector3 b = via.transform.position;
         Vector3 c = to.transform.position;
 
-        float direction = this.direction(a, b, c);
+        float direction = GetDirection(a, b, c);
 
         if(Mathf.Approximately(0f, direction))
         {
@@ -27,7 +27,7 @@ public class Turn {
         }
     }
 
-    private float direction(Vector3 a, Vector3 b, Vector3 c)
+    private float GetDirection(Vector3 a, Vector3 b, Vector3 c)
     {
         return ((b.x - a.x) * (c.z - a.z) - (b.z - a.z) * (c.x - a.x));
     }
