@@ -57,12 +57,13 @@ public class CarController : MonoBehaviour
     {
         Vector3 position;
         RaycastHit hit;
+        int layerMask = 1 << 8;
 
         position = transform.position;
         position += transform.forward * 3;
         position += transform.up;
 
-        if (Physics.Raycast(position, transform.forward, out hit, 100))
+        if (Physics.Raycast(position, transform.forward, out hit, 100, layerMask))
         {
             Debug.DrawLine(position, hit.point, Color.magenta);
         }
