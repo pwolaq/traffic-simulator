@@ -50,8 +50,24 @@ public class CarController : MonoBehaviour
     {
         AdjustWheelPosition();
         AdjustSpeed();
+        CheckSensors();
     }
 
+    void CheckSensors()
+    {
+        Vector3 position;
+        RaycastHit hit;
+
+        position = transform.position;
+        position += transform.forward * 3;
+        position += transform.up;
+
+        if (Physics.Raycast(position, transform.forward, out hit, 100))
+        {
+            Debug.DrawLine(position, hit.point, Color.magenta);
+        }
+    }
+ 
     void CompleteWaypoint()
     {
         if (!path.GetNext())
