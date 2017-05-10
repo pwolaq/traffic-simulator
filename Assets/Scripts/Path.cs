@@ -43,6 +43,11 @@ public class Path {
 
     public Vertex GetVertex(int n)
     {
+        if (withPrepend)
+        {
+            return vertices[n + 1];
+        }
+
         return vertices[n];
     }
 
