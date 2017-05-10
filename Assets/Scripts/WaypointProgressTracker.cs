@@ -131,7 +131,7 @@ namespace UnityStandardAssets.Utility
         }
 
 
-        private void OnDrawGizmos()
+        private void OnDrawGizmosSelected()
         {
             if (Application.isPlaying)
             {
@@ -140,6 +140,13 @@ namespace UnityStandardAssets.Utility
                 Gizmos.DrawWireSphere(circuit.GetRoutePosition(progressDistance), 1);
                 Gizmos.color = Color.yellow;
                 Gizmos.DrawLine(target.position, target.position + target.forward);
+
+                Gizmos.color = Color.red;
+
+                foreach (Vector3 point in circuit.points)
+                {
+                    Gizmos.DrawWireSphere(point, 0.5f);
+                }
             }
         }
     }

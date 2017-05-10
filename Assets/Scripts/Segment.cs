@@ -43,15 +43,21 @@ public class Segment {
     {
         if (turn == Direction.LEFT)
         {
-            waypoints.Add(a);
-            waypoints.Add(a + mainOffset + sideOffset * 0.5f);
+            waypoints.Add(a - sideOffset * 0.5f);
+            waypoints.Add(a + mainOffset + sideOffset * 0.75f);
         }
         else if (turn == Direction.RIGHT)
         {
+            waypoints.Add(a + mainOffset * 0.5f + sideOffset * 2.5f);
+            waypoints.Add(a + mainOffset * 1.5f + sideOffset * 1.5f);
+        }
+        else
+        {
+            waypoints.Add(a + sideOffset);
             waypoints.Add(a + mainOffset + sideOffset);
         }
 
-        waypoints.Add(a + mainOffset * 1.5f + sideOffset);
+        waypoints.Add(a + mainOffset * 2.5f + sideOffset);
         waypoints.Add(b - mainOffset + sideOffset);
     }
 
