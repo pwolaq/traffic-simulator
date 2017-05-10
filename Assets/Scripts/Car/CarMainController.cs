@@ -2,6 +2,7 @@
 using System.Linq;
 using UnityStandardAssets.Utility;
 using UnityStandardAssets.Vehicles.Car;
+using System.Collections.Generic;
 
 public class CarMainController : MonoBehaviour
 {
@@ -28,7 +29,7 @@ public class CarMainController : MonoBehaviour
     private void Initialize()
     {
         SetRandomColor();
-        SelectDestination();
+        SelectDestination(null);
     }
 
     private void SetRandomColor()
@@ -45,10 +46,50 @@ public class CarMainController : MonoBehaviour
         }
     }
 
-    public void SelectDestination()
+    public void CompleteWaypoint(int n)
     {
-        path = roads.GetPathToRandomTarget(position);
-        position = path.finishPosition;
+        int index = ((n - 1) >> 2);
+        position = path.GetVertex(index + 1);
+
+        if (n == path.GetPath().Length)
+        {
+            SelectDestination(path.GetVertex(index));
+        }
+    }
+
+    private void SelectDestination(Vertex previousVertex)
+    {
+        if (previousVertex == null)
+        {
+            path = roads.GetPathToRandomTarget(position);
+        }
+        else
+        {
+            List<Vertex> filteredVertices = new List<Vertex>();
+
+            foreach (Edge e in position.GetEdges())
+            {
+                Vertex neighbor = e.GetNeighbor(position);
+                if (neighbor != previousVertex)
+                {
+                    filteredVertices.Add(neighbor);
+                }
+            }
+
+            if (filteredVertices.Count == 0)
+            {
+                path = roads.GetPathToRandomTarget(position);
+            }
+            else
+            {
+                Vertex randomNeighbor = filteredVertices[Random.Range(0, filteredVertices.Count)];
+                path = roads.GetPathToRandomTarget(randomNeighbor);
+                path.Prepend(position);
+                path.Prepend(previousVertex);
+            }
+        }
+
+        path.Calculate();
         WaypointProgressTracker wpt = this.GetComponent<WaypointProgressTracker>();
         wpt.Setup(new WaypointCircuit(path.GetPath()));
     }

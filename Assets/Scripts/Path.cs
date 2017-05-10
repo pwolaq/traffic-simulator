@@ -3,13 +3,24 @@ using UnityEngine;
 
 public class Path {
     private List<Vector3> waypoints = new List<Vector3>();
-    public Vertex finishPosition;
+    private List<Vertex> vertices;
+    private bool withPrepend = false;
 
     public Path(List<Vertex> vertices)
     {
+        this.vertices = vertices;
+    }
+
+    public void Prepend(Vertex element)
+    {
+        withPrepend = true;
+        vertices.Insert(0, element);
+    }
+
+    public void Calculate()
+    {
         int index = 0;
         int count = vertices.Count;
-        finishPosition = vertices[count - 1];
         Direction turn;
 
         for (index = 0; index < count - 1; index++)
@@ -23,8 +34,16 @@ public class Path {
                 turn = Direction.FORWARD;
             }
 
-            waypoints.AddRange(new Segment(vertices[index], vertices[index + 1], turn).GetPath());
+            if (!withPrepend || index > 0)
+            {
+                waypoints.AddRange(new Segment(vertices[index], vertices[index + 1], turn).GetPath());
+            }
         }
+    }
+
+    public Vertex GetVertex(int n)
+    {
+        return vertices[n];
     }
 
     public Vector3[] GetPath()

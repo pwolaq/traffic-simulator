@@ -109,10 +109,7 @@ namespace UnityStandardAssets.Utility
                 if (targetDelta.magnitude < pointToPointThreshold)
                 {
                     progressNum++;
-                    if (progressNum == circuit.points.Length)
-                    {
-                        controller.SelectDestination();
-                    }
+                    controller.CompleteWaypoint(progressNum);
                     progressNum = progressNum%circuit.points.Length;
                 }
 
