@@ -51,7 +51,7 @@ public class Segment {
             waypoints.Add(a + mainOffset + sideOffset);
         }
 
-        waypoints.Add(a + mainOffset * 5 + sideOffset);
+        waypoints.Add(a + mainOffset * 1.5f + sideOffset);
         waypoints.Add(b - mainOffset + sideOffset);
     }
 

@@ -145,6 +145,30 @@ namespace UnityStandardAssets.Vehicles.Car
                                        m_LateralWanderDistance;
                 }
 
+                Vector3 position;
+                RaycastHit hit;
+                int layerMask = 1 << 8;
+
+                position = transform.position;
+                position += transform.forward * 3;
+                position += transform.up;
+
+                if (Physics.Raycast(position, transform.forward, out hit, 100, layerMask))
+                {
+                    var mySpeed = m_CarController.CurrentSpeed;
+                    var frontCarSpeed = hit.rigidbody.GetComponent<CarController>().CurrentSpeed;
+                    var frontCarSpeedDiff = mySpeed - frontCarSpeed;
+
+                    if (hit.distance < mySpeed / 10 + 1)
+                    {
+                        desiredSpeed = 0;
+                    } else if (frontCarSpeedDiff > 0)
+                    {
+                        float collisionDesiredSpeed = mySpeed - Mathf.Pow((1 - hit.distance / 100), 4) * frontCarSpeedDiff;
+                        desiredSpeed = Math.Min(desiredSpeed, collisionDesiredSpeed);
+                    }
+                }
+
                 // use different sensitivity depending on whether accelerating or braking:
                 float accelBrakeSensitivity = (desiredSpeed < m_CarController.CurrentSpeed)
                                                   ? m_BrakeSensitivity

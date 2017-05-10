@@ -12,8 +12,7 @@ public class Vehicles : MonoBehaviour {
 
     void Start()
     {
-        //StartCoroutine(AddVehicles());
-        AddCar();
+        StartCoroutine(AddVehicles());
     }
 
     IEnumerator AddVehicles()

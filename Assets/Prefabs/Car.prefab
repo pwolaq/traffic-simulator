@@ -2159,7 +2159,7 @@ MonoBehaviour:
   lookAheadForSpeedOffset: 10
   lookAheadForSpeedFactor: 0.2
   progressStyle: 1
-  pointToPointThreshold: 3
+  pointToPointThreshold: 4
   target: {fileID: 0}
 --- !u!114 &114332179700018556
 MonoBehaviour:
@@ -2179,8 +2179,8 @@ MonoBehaviour:
   m_SteerSensitivity: 0.01
   m_AccelSensitivity: 1
   m_BrakeSensitivity: 1
-  m_LateralWanderDistance: 3
-  m_LateralWanderSpeed: 0.2
+  m_LateralWanderDistance: 0
+  m_LateralWanderSpeed: 0
   m_AccelWanderAmount: 0.1
   m_AccelWanderSpeed: 0.1
   m_BrakeCondition: 1
