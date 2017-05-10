@@ -12,7 +12,8 @@ public class Vehicles : MonoBehaviour {
 
     void Start()
     {
-        StartCoroutine(AddVehicles());
+        //StartCoroutine(AddVehicles());
+        AddCar();
     }
 
     IEnumerator AddVehicles()
@@ -29,10 +30,8 @@ public class Vehicles : MonoBehaviour {
         Vertex vertex = roads.GetRandomRespawn();
         GameObject obj = Instantiate(car, vertex.transform.position, Quaternion.identity);
         obj.transform.parent = transform;
-        CarController ctrl = obj.GetComponent<CarController>();
-        ctrl.position = vertex;
-        ctrl.roads = roads;
-        ctrl.SelectDestination();
+        CarMainController ctrl = obj.GetComponent<CarMainController>();
+        ctrl.Setup(vertex, roads);
         count++;
     }
 }

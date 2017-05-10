@@ -3,13 +3,16 @@ using UnityEngine;
 
 public class Segment {
     private List<Vector3> waypoints = new List<Vector3>();
+    private Direction turn;
+    private Vector3 up = new Vector3(0, 1);
 
-    public Segment(Vertex from, Vertex to)
+    public Segment(Vertex from, Vertex to, Direction turn)
     {
-        Vector3 a = from.transform.position;
-        Vector3 b = to.transform.position;
+        Vector3 a = from.transform.position + up;
+        Vector3 b = to.transform.position + up;
         float mainOffset = 10f;
-        float sideOffset = 2f;
+        float sideOffset = 2.5f;
+        this.turn = turn;
 
         if (Mathf.Approximately(a.z, b.z))
         {
@@ -38,10 +41,17 @@ public class Segment {
 
     private void AddWaypoints(Vector3 a, Vector3 b, Vector3 mainOffset, Vector3 sideOffset)
     {
-        Vector3 stabilizationOffset = mainOffset * 3f;
-        waypoints.Add(a + mainOffset + sideOffset);
-        waypoints.Add(a + stabilizationOffset + sideOffset);
-        waypoints.Add(b - stabilizationOffset + sideOffset);
+        if (turn == Direction.LEFT)
+        {
+            waypoints.Add(a);
+            waypoints.Add(a + mainOffset + sideOffset * 0.5f);
+        }
+        else if (turn == Direction.RIGHT)
+        {
+            waypoints.Add(a + mainOffset + sideOffset);
+        }
+
+        waypoints.Add(a + mainOffset * 5 + sideOffset);
         waypoints.Add(b - mainOffset + sideOffset);
     }
 

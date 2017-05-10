@@ -2,64 +2,33 @@
 using UnityEngine;
 
 public class Path {
-    private List<Vertex> vertices;
-    private List<Vector3> waypoints;
-    private IEnumerator<List<Vector3>> iterator;
-    private int index = 0;
+    private List<Vector3> waypoints = new List<Vector3>();
+    public Vertex finishPosition;
 
-    public IEnumerator<List<Vector3>> PathIterator()
+    public Path(List<Vertex> vertices)
     {
         int index = 0;
         int count = vertices.Count;
-        List<Vector3> turn;
-        yield return new Segment(vertices[index], vertices[index + 1]).GetPath();
+        finishPosition = vertices[count - 1];
+        Direction turn;
 
-        for (index = 1; index < count - 1; index++)
+        for (index = 0; index < count - 1; index++)
         {
-            turn = new Turn(vertices[index - 1], vertices[index], vertices[index + 1]).GetPath();
-
-            if(turn.Count > 0)
+            try
             {
-                yield return turn;
+                turn = Turn.GetDirection(vertices[index - 1], vertices[index], vertices[index + 1]);
+            }
+            catch
+            {
+                turn = Direction.FORWARD;
             }
 
-            yield return new Segment(vertices[index], vertices[index + 1]).GetPath();
+            waypoints.AddRange(new Segment(vertices[index], vertices[index + 1], turn).GetPath());
         }
     }
 
-    public Path(List<Vertex> list)
+    public Vector3[] GetPath()
     {
-        vertices = list;
-        iterator = PathIterator();
-        iterator.MoveNext();
-        waypoints = iterator.Current;
-    }
-
-    public bool GetNext()
-    {
-        index++;
-
-        if(index >= waypoints.Count)
-        {
-            if (!iterator.MoveNext())
-            {
-                return false;
-            }
-
-            index = 0;
-            waypoints = iterator.Current;
-        }
-
-        return true;
-    }
-
-    public Vector3 GetCurrentTarget()
-    {
-        return waypoints[index];
-    }
-
-    public List<Vertex> GetVertices()
-    {
-        return vertices;
+        return waypoints.ToArray();
     }
 }

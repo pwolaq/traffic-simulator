@@ -53,6 +53,9 @@ GameObject:
   - component: {fileID: 4020149505774008}
   - component: {fileID: 54702930805438728}
   - component: {fileID: 114000033173948522}
+  - component: {fileID: 114332179700018556}
+  - component: {fileID: 114377331422295910}
+  - component: {fileID: 114259425033692702}
   m_Layer: 8
   m_Name: Car
   m_TagString: Untagged
@@ -701,7 +704,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1022018507446756}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4682990680851308}
@@ -2138,14 +2141,89 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 755472600df40c54a94d6e9abca59fc8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  roads: {fileID: 0}
-  position: {fileID: 0}
   body: {fileID: 4682990680851308}
-  rb: {fileID: 54702930805438728}
-  frontLeft: {fileID: 146641012580095444}
-  frontRight: {fileID: 146458571787820448}
-  rearLeft: {fileID: 146000339749134488}
-  rearRight: {fileID: 146313907305168000}
+--- !u!114 &114259425033692702
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1022018507446756}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5cb22d331ef7d64796f917c6a455a32, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  controller: {fileID: 114000033173948522}
+  lookAheadForTargetOffset: 5
+  lookAheadForTargetFactor: 0.1
+  lookAheadForSpeedOffset: 10
+  lookAheadForSpeedFactor: 0.2
+  progressStyle: 1
+  pointToPointThreshold: 3
+  target: {fileID: 0}
+--- !u!114 &114332179700018556
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1022018507446756}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d963df58504b69045b8d0d746ba6f777, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_CautiousSpeedFactor: 0.5
+  m_CautiousMaxAngle: 90
+  m_CautiousMaxDistance: 10
+  m_CautiousAngularVelocityFactor: 30
+  m_SteerSensitivity: 0.01
+  m_AccelSensitivity: 1
+  m_BrakeSensitivity: 1
+  m_LateralWanderDistance: 3
+  m_LateralWanderSpeed: 0.2
+  m_AccelWanderAmount: 0.1
+  m_AccelWanderSpeed: 0.1
+  m_BrakeCondition: 1
+  m_Driving: 1
+  m_Target: {fileID: 0}
+  m_StopWhenTargetReached: 0
+  m_ReachTargetThreshold: 2
+--- !u!114 &114377331422295910
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1022018507446756}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ea65b38d485c374caa584a03f1de571, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_CarDriveType: 2
+  m_WheelColliders:
+  - {fileID: 146641012580095444}
+  - {fileID: 146458571787820448}
+  - {fileID: 146000339749134488}
+  - {fileID: 146313907305168000}
+  m_WheelMeshes:
+  - {fileID: 1596311788898562}
+  - {fileID: 1055215664034738}
+  - {fileID: 1024554456699696}
+  - {fileID: 1599310466107562}
+  m_CentreOfMassOffset: {x: 0, y: 0, z: 0}
+  m_MaximumSteerAngle: 45
+  m_SteerHelper: 1
+  m_TractionControl: 0.74
+  m_FullTorqueOverAllWheels: 2000
+  m_ReverseTorque: 150
+  m_MaxHandbrakeTorque: 0
+  m_Downforce: 100
+  m_SpeedType: 1
+  m_Topspeed: 50
+  m_RevRangeBoundary: 1
+  m_SlipLimit: 0.4
+  m_BrakeTorque: 20000
+  m_Rigidbody: {fileID: 54702930805438728}
 --- !u!137 &137104285009098728
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1
