@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class TrafficLightsController : MonoBehaviour {
     public enum Direction { A, B, CHANGING };
-    public float intervalA = 15;
-    public float intervalB = 15;
+    public float intervalA = 1500;
+    public float intervalB = 1500;
     public TrafficLights[] lightsA = new TrafficLights[2];
     public TrafficLights[] lightsB = new TrafficLights[2];
     public Direction current = Direction.A;
@@ -13,6 +13,27 @@ public class TrafficLightsController : MonoBehaviour {
     void Start()
     {
         StartCoroutine(ChangeLights());
+    }
+
+    public bool CanGo(Vector3 position, bool veryClose)
+    {
+        if (veryClose && current == Direction.CHANGING)
+        {
+            return true;
+        }
+
+        Vector3 diff = position - transform.position;
+
+        if (Mathf.Abs(diff.x) > Mathf.Abs(diff.z))
+        {
+            return current == Direction.A;
+        }
+        else
+        {
+            return current == Direction.B;
+        }
+
+        return false;
     }
 
     IEnumerator ChangeLights()

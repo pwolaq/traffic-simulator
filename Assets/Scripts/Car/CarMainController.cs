@@ -46,6 +46,11 @@ public class CarMainController : MonoBehaviour
         }
     }
 
+    public Vertex GetPosition()
+    {
+        return position;
+    }
+
     public void CompleteWaypoint(int n)
     {
         int index = ((n - 1) >> 2);

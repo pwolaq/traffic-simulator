@@ -2174,7 +2174,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_CautiousSpeedFactor: 0.5
   m_CautiousMaxAngle: 90
-  m_CautiousMaxDistance: 10
+  m_CautiousMaxDistance: 15
   m_CautiousAngularVelocityFactor: 30
   m_SteerSensitivity: 0.01
   m_AccelSensitivity: 1
