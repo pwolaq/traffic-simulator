@@ -60,6 +60,23 @@ namespace UnityStandardAssets.Vehicles.Car
             main = GetComponent<CarMainController>();
         }
 
+        private float Bezier(float t)
+        {
+            t = Mathf.Min(1, t);
+            t = Mathf.Max(0, t);
+
+            float A = 1;
+            float B = 0.01f;
+            float C = 0.7f;
+            float D = 0.3f;
+
+            return 
+                Mathf.Pow(1 - t, 3) * A + 
+                3 * Mathf.Pow(1 - t, 2) * t * B + 
+                3 * (1 - t) * Mathf.Pow(t, 2) * C + 
+                Mathf.Pow(t, 3) * D;
+        }
+
         private float AdjustSpeedToFrontCar(float desiredSpeed)
         {
             Vector3 position;
@@ -70,20 +87,19 @@ namespace UnityStandardAssets.Vehicles.Car
             position += transform.forward * 3;
             position += transform.up;
 
-            if (Physics.Raycast(position, transform.forward, out hit, 100, layerMask))
+            if (Physics.Raycast(position, transform.forward, out hit, 60, layerMask))
             {
                 var mySpeed = m_CarController.CurrentSpeed;
                 var frontCarSpeed = hit.rigidbody.GetComponent<CarController>().CurrentSpeed;
                 var frontCarSpeedDiff = mySpeed - frontCarSpeed;
 
-                if (hit.distance < mySpeed / 10 + 1)
+                if (hit.distance < 10)
                 {
                     desiredSpeed = 0;
                 }
-                else if (frontCarSpeedDiff > 0)
+                else
                 {
-                    float collisionDesiredSpeed = mySpeed - Mathf.Pow((1 - hit.distance / 100), 4) * frontCarSpeedDiff;
-                    desiredSpeed = Math.Min(desiredSpeed, collisionDesiredSpeed);
+                    desiredSpeed = m_CarController.MaxSpeed - frontCarSpeedDiff * (1 - Bezier((hit.distance - 10) / 50));
                 }
             }
 
@@ -95,19 +111,17 @@ namespace UnityStandardAssets.Vehicles.Car
             Vertex vertex = main.GetPosition();
             Vector3 position = vertex.transform.position;
             float distance = Vector3.Distance(transform.position, position);
-            bool veryClose = distance < 20;
+            bool veryClose = distance < 10;
 
             if (!vertex.CanGo(transform.position, veryClose))
             {
-                float collisionDesiredSpeed = (distance / 80) * m_CarController.MaxSpeed;
-
                 if (veryClose)
                 {
                     desiredSpeed = 0;
                 }
-                else if (distance < 100)
+                else if (distance < 60)
                 {
-                    desiredSpeed = Math.Min(desiredSpeed, collisionDesiredSpeed);
+                    desiredSpeed = Math.Min(desiredSpeed, m_CarController.MaxSpeed * (1 - Bezier((distance - 10) / 50)));
                 }
             }
 
@@ -204,6 +218,8 @@ namespace UnityStandardAssets.Vehicles.Car
 
                 desiredSpeed = AdjustSpeedToFrontCar(desiredSpeed);
                 desiredSpeed = AdjustSpeedToIntersection(desiredSpeed);
+
+                //Debug.Log(desiredSpeed);
 
                 if (desiredSpeed == 0)
                 {
