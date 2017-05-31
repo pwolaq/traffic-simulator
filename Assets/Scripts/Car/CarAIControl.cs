@@ -92,12 +92,10 @@ namespace UnityStandardAssets.Vehicles.Car
 
         private float AdjustSpeedToIntersection(float desiredSpeed)
         {
-            return desiredSpeed;
             Vertex vertex = main.GetPosition();
             Vector3 position = vertex.transform.position;
             float distance = Vector3.Distance(transform.position, position);
-            bool veryClose = distance < 10;
-            m_Driving = true;
+            bool veryClose = distance < 20;
 
             if (!vertex.CanGo(transform.position, veryClose))
             {
@@ -105,7 +103,7 @@ namespace UnityStandardAssets.Vehicles.Car
 
                 if (veryClose)
                 {
-                    m_Driving = false;
+                    desiredSpeed = 0;
                 }
                 else if (distance < 100)
                 {
@@ -206,6 +204,12 @@ namespace UnityStandardAssets.Vehicles.Car
 
                 desiredSpeed = AdjustSpeedToFrontCar(desiredSpeed);
                 desiredSpeed = AdjustSpeedToIntersection(desiredSpeed);
+
+                if (desiredSpeed == 0)
+                {
+                    m_CarController.Move(0, 0, -1f, 1f);
+                    return;
+                }
 
                 // use different sensitivity depending on whether accelerating or braking:
                 float accelBrakeSensitivity = (desiredSpeed < m_CarController.CurrentSpeed)

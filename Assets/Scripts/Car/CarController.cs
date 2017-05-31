@@ -148,7 +148,7 @@ namespace UnityStandardAssets.Vehicles.Car
             m_WheelColliders[1].steerAngle = m_SteerAngle;
 
             SteerHelper();
-            ApplyDrive(accel, footbrake);
+            ApplyDrive(accel, footbrake, handbrake);
             CapSpeed();
 
             //Set the handbrake.
@@ -190,7 +190,7 @@ namespace UnityStandardAssets.Vehicles.Car
         }
 
 
-        private void ApplyDrive(float accel, float footbrake)
+        private void ApplyDrive(float accel, float footbrake, float handbrake)
         {
 
             float thrustTorque;
@@ -226,6 +226,10 @@ namespace UnityStandardAssets.Vehicles.Car
                 {
                     m_WheelColliders[i].brakeTorque = 0f;
                     m_WheelColliders[i].motorTorque = -m_ReverseTorque*footbrake;
+                }
+                else if (handbrake <= 0)
+                {
+                    m_WheelColliders[i].brakeTorque = 0f;
                 }
             }
         }
