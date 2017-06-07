@@ -6,6 +6,7 @@ public class Edge : MonoBehaviour
     private Vertex vertexB;
     private Vector3 positionA;
     private Vector3 positionB;
+    private int length = 0;
 
     private const float MARGIN = 50f;
 
@@ -15,6 +16,7 @@ public class Edge : MonoBehaviour
 
         Vertex[] vertices = roads.GetComponentsInChildren<Vertex>();
         Bounds bounds = new Bounds(transform.position, Vector3.zero);
+        Vector3 offset;
 
         foreach (Transform child in transform)
         {
@@ -23,18 +25,21 @@ public class Edge : MonoBehaviour
         
         if(bounds.extents.x > bounds.extents.z)
         {
-            positionA = transform.position + new Vector3(bounds.extents.x / 2, 0, 0);
-            positionB = transform.position - new Vector3(bounds.extents.x / 2, 0, 0);
+            offset = new Vector3(bounds.extents.x / 2 + 30, 0, 0);
+            length = (int) bounds.extents.x + 30;
         }
         else
         {
-            positionA = transform.position + new Vector3(0, 0, bounds.extents.z / 2);
-            positionB = transform.position - new Vector3(0, 0, bounds.extents.z / 2);
+            offset = new Vector3(0, 0, bounds.extents.z / 2 + 30);
+            length = (int) bounds.extents.z + 30;
         }
 
-        foreach(Vertex vertex in vertices)
+        positionA = transform.position + offset;
+        positionB = transform.position - offset;
+
+        foreach (Vertex vertex in vertices)
         {
-            if(Vector3.Distance(vertex.transform.position, positionA) < MARGIN)
+            if (Vector3.Distance(vertex.transform.position, positionA) < MARGIN)
             {
                 vertexA = vertex;
             }
@@ -85,6 +90,6 @@ public class Edge : MonoBehaviour
 
     public int GetDistance()
     {
-        return 1;
+        return length;
     }
 }

@@ -7,7 +7,7 @@ public class Vehicles : MonoBehaviour {
     public UI ui;
     private Vertex last = null;
 
-    private const float INTERVAL = 2f;
+    private const float INTERVAL = 1f;
     private int maxCars = 0;
     private int count = 0;
     private float time = 0f;

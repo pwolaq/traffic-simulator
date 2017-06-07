@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Graph {
     private Vertex[] vertices;
+    private int prevIndex = -1;
 
     public Graph(Vertex[] v)
     {
@@ -12,14 +13,24 @@ public class Graph {
 
     public Vertex GetRandomVertex()
     {
-        int index = Random.Range(0, vertices.Length);
+        int index;
+        do
+        {
+            index = Random.Range(0, vertices.Length);
+        } while (vertices[index].tag == "Respawn");
         return vertices[index];
     }
 
     public Vertex GetRandomRespawn()
     {
         GameObject[] respawns = GameObject.FindGameObjectsWithTag("Respawn");
-        int index = Random.Range(0, respawns.Length);
+        int index;
+        do
+        {
+            index = Random.Range(0, respawns.Length);
+        } while (index == prevIndex);
+
+        prevIndex = index;
         return respawns[index].GetComponent<Vertex>();
     }
 
