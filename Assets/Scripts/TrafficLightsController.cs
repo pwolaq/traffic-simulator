@@ -43,8 +43,9 @@ public class TrafficLightsController : MonoBehaviour {
             if (current == Direction.A)
             {
                 current = Direction.CHANGING;
-                TurnOn(lightsA);
                 TurnOff(lightsB);
+                yield return new WaitForSeconds(TrafficLights.CHANGE_DELAY);
+                TurnOn(lightsA);
                 yield return new WaitForSeconds(TrafficLights.CHANGE_DELAY * 3);
                 current = Direction.B;
 
@@ -53,8 +54,9 @@ public class TrafficLightsController : MonoBehaviour {
             else
             {
                 current = Direction.CHANGING;
-                TurnOn(lightsB);
                 TurnOff(lightsA);
+                yield return new WaitForSeconds(TrafficLights.CHANGE_DELAY);
+                TurnOn(lightsB);
                 yield return new WaitForSeconds(TrafficLights.CHANGE_DELAY * 3);
                 current = Direction.A;
 

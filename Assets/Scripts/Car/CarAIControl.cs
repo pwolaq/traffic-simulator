@@ -60,15 +60,16 @@ namespace UnityStandardAssets.Vehicles.Car
             main = GetComponent<CarMainController>();
         }
 
-        private float Bezier(float t)
+        private float Bezier(float distance)
         {
+            float t = 1 - (distance - 10) / 50;
             t = Mathf.Min(1, t);
             t = Mathf.Max(0, t);
 
-            float A = 1;
-            float B = 0.01f;
-            float C = 0.7f;
-            float D = 0.3f;
+            float D = 1;
+            float A = 0.01f;
+            float B = 0.7f;
+            float C = 0.3f;
 
             return 
                 Mathf.Pow(1 - t, 3) * A + 
@@ -99,7 +100,10 @@ namespace UnityStandardAssets.Vehicles.Car
                 }
                 else
                 {
-                    desiredSpeed = m_CarController.MaxSpeed - frontCarSpeedDiff * (1 - Bezier((hit.distance - 10) / 50));
+                    float prev = desiredSpeed;
+                    float bezier = Bezier(hit.distance);
+
+                    desiredSpeed = Mathf.Min(desiredSpeed, m_CarController.MaxSpeed - frontCarSpeedDiff * bezier);
                 }
             }
 
@@ -113,7 +117,7 @@ namespace UnityStandardAssets.Vehicles.Car
             float distance = Vector3.Distance(transform.position, position);
             bool veryClose = distance < 10;
 
-            if (!vertex.CanGo(transform.position, veryClose))
+            if (!vertex.CanGo(transform.position, veryClose && m_CarController.CurrentSpeed > 10))
             {
                 if (veryClose)
                 {
@@ -121,7 +125,7 @@ namespace UnityStandardAssets.Vehicles.Car
                 }
                 else if (distance < 60)
                 {
-                    desiredSpeed = Math.Min(desiredSpeed, m_CarController.MaxSpeed * (1 - Bezier((distance - 10) / 50)));
+                    desiredSpeed = Math.Min(desiredSpeed, m_CarController.MaxSpeed * (1.0f - Bezier(distance)));
                 }
             }
 

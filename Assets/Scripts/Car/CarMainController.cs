@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Linq;
 using UnityStandardAssets.Utility;
 using UnityStandardAssets.Vehicles.Car;
 using System.Collections.Generic;

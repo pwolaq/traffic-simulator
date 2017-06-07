@@ -5,7 +5,6 @@ public class Vehicles : MonoBehaviour {
     public Roads roads;
     public GameObject car;
     public UI ui;
-    private Vertex last = null;
 
     private const float INTERVAL = 1f;
     private int maxCars = 0;
@@ -36,12 +35,7 @@ public class Vehicles : MonoBehaviour {
 
     private void AddCar()
     {
-        Vertex vertex;
-        do {
-            vertex = roads.GetRandomRespawn();
-        }
-        while (vertex == last);
-        last = vertex;
+        Vertex vertex = roads.GetRandomRespawn();
         GameObject obj = Instantiate(car, vertex.transform.position, Quaternion.identity);
         obj.transform.parent = transform;
         CarMainController ctrl = obj.GetComponent<CarMainController>();

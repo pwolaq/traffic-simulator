@@ -57,7 +57,7 @@ namespace UnityStandardAssets.Vehicles.Car
         // Use this for initialization
         private void Start()
         {
-            m_Topspeed = UnityEngine.Random.Range(40, 60);
+            m_Topspeed = UnityEngine.Random.Range(40, 55);
             m_WheelMeshLocalRotations = new Quaternion[4];
             for (int i = 0; i < 4; i++)
             {
