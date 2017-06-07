@@ -29,9 +29,11 @@ public class UI : MonoBehaviour {
         currentCarsText.text = n.ToString();
     }
 
-    public void SetTime()
+    public void SetTime(int passed)
     {
-
+        int minutes = passed / 60;
+        int seconds = passed % 60;
+        time.text = minutes.ToString() + ":" + (seconds >= 10 ? seconds.ToString() : "0" + seconds.ToString());
     }
 
     public void OnSliderChanged()

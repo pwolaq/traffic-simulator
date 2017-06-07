@@ -10,9 +10,17 @@ public class Vehicles : MonoBehaviour {
     private const float INTERVAL = 2f;
     private int maxCars = 0;
     private int count = 0;
+    private float time = 0f;
+
+    void Update()
+    {
+        time += Time.deltaTime;
+        ui.SetTime((int) time);
+    }
 
     public void StartSimulation(int cars)
     {
+        gameObject.SetActive(true);
         maxCars = cars;
         StartCoroutine(AddVehicles());
     }
