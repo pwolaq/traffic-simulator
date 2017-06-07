@@ -127,12 +127,9 @@ namespace UnityStandardAssets.Utility
             {
                 var p1 = points[i];
                 var p2 = points[(i + 1)% points.Length];
-
-                if (p1 != null && p2 != null)
-                {
-                    distances[i] = accumulateDistance;
-                    accumulateDistance += (p1 - p2).magnitude;
-                }
+                
+                distances[i] = accumulateDistance;
+                accumulateDistance += (p1 - p2).magnitude;
             }
         }
 

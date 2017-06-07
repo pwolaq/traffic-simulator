@@ -31,8 +31,6 @@ public class TrafficLightsController : MonoBehaviour {
         {
             return current == Direction.B;
         }
-
-        return false;
     }
 
     IEnumerator ChangeLights()

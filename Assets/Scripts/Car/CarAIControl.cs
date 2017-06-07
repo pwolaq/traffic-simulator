@@ -100,10 +100,7 @@ namespace UnityStandardAssets.Vehicles.Car
                 }
                 else
                 {
-                    float prev = desiredSpeed;
-                    float bezier = Bezier(hit.distance);
-
-                    desiredSpeed = Mathf.Min(desiredSpeed, m_CarController.MaxSpeed - frontCarSpeedDiff * bezier);
+                    desiredSpeed = Mathf.Min(desiredSpeed, m_CarController.MaxSpeed - frontCarSpeedDiff * Bezier(hit.distance));
                 }
             }
 
