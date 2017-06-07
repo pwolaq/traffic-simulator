@@ -4,21 +4,22 @@ using UnityEngine;
 public class Vehicles : MonoBehaviour {
     public Roads roads;
     public GameObject car;
+    public UI ui;
     private Vertex last = null;
 
     private const float INTERVAL = 2f;
-    private const int MAX_CARS = 15;
-
+    private int maxCars = 0;
     private int count = 0;
 
-    void Start()
+    public void StartSimulation(int cars)
     {
+        maxCars = cars;
         StartCoroutine(AddVehicles());
     }
 
     IEnumerator AddVehicles()
     {
-        while (count < MAX_CARS)
+        while (count < maxCars)
         {
             yield return new WaitForSeconds(INTERVAL + Random.Range(0, INTERVAL));
             AddCar();
@@ -38,5 +39,6 @@ public class Vehicles : MonoBehaviour {
         CarMainController ctrl = obj.GetComponent<CarMainController>();
         ctrl.Setup(vertex, roads);
         count++;
+        ui.SetCars(count);
     }
 }
