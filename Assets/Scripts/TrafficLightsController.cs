@@ -1,11 +1,10 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class TrafficLightsController : MonoBehaviour {
     public enum Direction { A, B, CHANGING };
-    public float intervalA = 1500;
-    public float intervalB = 1500;
+    public static float intervalA;
+    public static float intervalB;
     public TrafficLights[] lightsA = new TrafficLights[2];
     public TrafficLights[] lightsB = new TrafficLights[2];
     public Direction current = Direction.A;

@@ -17,10 +17,12 @@ public class Vehicles : MonoBehaviour {
         ui.SetTime((int) time);
     }
 
-    public void StartSimulation(int cars)
+    public void StartSimulation(int cars, int interval)
     {
         gameObject.SetActive(true);
         maxCars = cars;
+        TrafficLightsController.intervalA = interval;
+        TrafficLightsController.intervalB = interval;
         StartCoroutine(AddVehicles());
     }
 

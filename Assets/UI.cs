@@ -4,6 +4,8 @@ using UnityEngine.UI;
 public class UI : MonoBehaviour {
     public Text carsText;
     public Slider carsSlider;
+    public Text intervalText;
+    public Slider intervalSlider;
 
     public Text maxCarsText;
     public Text currentCarsText;
@@ -12,16 +14,17 @@ public class UI : MonoBehaviour {
     public Vehicles controller;
 
     private int cars;
+    private int interval;
     
 	void Start () {
-        OnSliderChanged();
+        OnCarSliderChanged();
+        OnIntervalSliderChanged();
 	}
 
     public void StartSimulation()
     {
         maxCarsText.text = cars.ToString();
-        controller.StartSimulation(cars);
-
+        controller.StartSimulation(cars, interval);
     }
 
     public void SetCars(int n)
@@ -36,9 +39,15 @@ public class UI : MonoBehaviour {
         time.text = minutes.ToString() + ":" + (seconds >= 10 ? seconds.ToString() : "0" + seconds.ToString());
     }
 
-    public void OnSliderChanged()
+    public void OnCarSliderChanged()
     {
         cars = (int) carsSlider.value;
         carsText.text = cars.ToString();
+    }
+
+    public void OnIntervalSliderChanged()
+    {
+        interval = (int)intervalSlider.value;
+        intervalText.text = interval.ToString();
     }
 }

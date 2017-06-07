@@ -39,9 +39,9 @@ public class TrafficLights : MonoBehaviour {
 
     private IEnumerator _SetRed()
     {
+        TurnOff(green);
         TurnOn(yellow);
         yield return new WaitForSeconds(CHANGE_DELAY);
-        TurnOff(green);
         TurnOff(yellow);
         TurnOn(red);
     }
