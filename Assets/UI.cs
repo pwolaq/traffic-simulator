@@ -50,4 +50,13 @@ public class UI : MonoBehaviour {
         interval = (int)intervalSlider.value;
         intervalText.text = interval.ToString();
     }
+
+    void Update()
+    {
+        if (Input.GetKey("escape"))
+        {
+            Application.Quit();
+        }
+
+    }
 }

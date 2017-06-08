@@ -7,8 +7,15 @@ public class CarMainController : MonoBehaviour
 {
     private Roads roads;
     private Vertex position;
+    private Vertex prevPosition;
     public Transform body;
     private Path path;
+    private float distance = 0;
+
+    public float GetDistance()
+    {
+        return distance + Vector3.Distance(transform.position, prevPosition.transform.position);
+    }
 
     public void Start()
     {
@@ -53,7 +60,18 @@ public class CarMainController : MonoBehaviour
     public void CompleteWaypoint(int n)
     {
         int index = ((n - 1) >> 2);
-        position = path.GetVertex(index + 1);
+        Vertex newPosition = path.GetVertex(index + 1);
+
+        if (newPosition != position)
+        {
+            if (prevPosition)
+            {
+                distance += Vector3.Distance(position.transform.position, prevPosition.transform.position);
+            }
+
+            prevPosition = position;
+            position = newPosition;
+        }
 
         if (n == path.GetPath().Length)
         {
